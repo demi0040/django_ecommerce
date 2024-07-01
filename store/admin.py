@@ -1,7 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
-from .models import Carpet
+from .models import Carpet, CarpetReview, CarpetImage
 
 @admin.register(Carpet)
 class CarpetAdmin(admin.ModelAdmin):
@@ -9,3 +7,14 @@ class CarpetAdmin(admin.ModelAdmin):
     list_filter = ('material', 'color', 'pattern', 'pile_height', 'origin', 'brand', 'is_active')
     search_fields = ('name', 'description', 'size', 'color', 'pattern', 'pile_height', 'origin', 'brand')
     list_editable = ('price', 'stock_quantity', 'is_active')
+
+@admin.register(CarpetReview)
+class CarpetReviewAdmin(admin.ModelAdmin):
+    list_display = ('carpet', 'user', 'rating', 'created_at')
+    list_filter = ('rating', 'created_at')
+    search_fields = ('carpet__name', 'user__username', 'comment')
+
+@admin.register(CarpetImage)
+class CarpetImageAdmin(admin.ModelAdmin):
+    list_display = ('carpet', 'description')
+    search_fields = ('carpet__name', 'description')
