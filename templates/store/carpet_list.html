@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Our Carpets</h1>
+<div class="carpet-grid">
+    {% for carpet in carpets %}
+        <div class="carpet-item">
+            {% if carpet.featured_image %}
+                <img src="{{ carpet.featured_image.url }}" alt="{{ carpet.name }}" style="max-width: 200px;">
+            {% endif %}
+            <h3>{{ carpet.name }}</h3>
+            <p>{{ carpet.price }}</p>
+            <a href="{% url 'store:carpet_detail' carpet.slug %}">View Details</a>
+        </div>
+    {% endfor %}
+</div>
+{% if is_paginated %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+{% endblock %}

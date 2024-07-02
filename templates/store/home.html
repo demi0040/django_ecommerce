@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to our Carpet Store</h1>
+<h2>Featured Carpets</h2>
+<div class="carpet-grid">
+    {% for carpet in featured_carpets %}
+        <div class="carpet-item">
+            {% if carpet.featured_image %}
+                <img src="{{ carpet.featured_image.url }}" alt="{{ carpet.name }}" style="max-width: 200px;">
+            {% endif %}
+            <h3>{{ carpet.name }}</h3>
+            <p>{{ carpet.price }}</p>
+            <a href="{% url 'store:carpet_detail' carpet.slug %}">View Details</a>
+        </div>
+    {% endfor %}
+</div>
+<a href="{% url 'store:carpet_list' %}">View All Carpets</a>
+{% endblock %}

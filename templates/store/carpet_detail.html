@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ carpet.name }}</h1>
+{% if carpet.featured_image %}
+    <img src="{{ carpet.featured_image.url }}" alt="{{ carpet.name }}" style="max-width: 400px;">
+{% endif %}
+<p>Price: {{ carpet.price }}</p>
+<p>Material: {{ carpet.get_material_display }}</p>
+<p>Size: {{ carpet.size }}</p>
+<p>Color: {{ carpet.color }}</p>
+<p>Pattern: {{ carpet.get_pattern_display }}</p>
+<p>Average Rating: {{ carpet.average_rating }}</p>
+<h2>Description</h2>
+<p>{{ carpet.description }}</p>
+<h2>Reviews</h2>
+{% for review in carpet.reviews.all %}
+    <div class="review">
+        <p>Rating: {{ review.rating }}/5</p>
+        <p>{{ review.comment }}</p>
+        <p>By: {{ review.user.username }}</p>
+    </div>
+{% endfor %}
+{% endblock %}
